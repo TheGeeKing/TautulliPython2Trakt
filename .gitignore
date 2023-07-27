@@ -1,0 +1,4 @@
+*.env
+log.txt
+ratingkeys.db
+__pycache__/
