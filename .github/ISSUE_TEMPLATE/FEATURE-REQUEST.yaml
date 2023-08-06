@@ -1,0 +1,24 @@
+name: 💡 Feature Request
+description: Create a new ticket for a new feature request.
+title: "💡 [Feature Request]: "
+labels:
+  - enhancement
+  - triage
+assignees:
+  - TheGeeKing
+body:
+  - type: textarea
+    attributes:
+      label: Description
+      description: A clear and concise description of the problem or missing capability.
+      placeholder: I'm always frustrated when [...]. I would like to [...].
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Describe the solution you'd like
+      description: If you have a solution in mind, please describe it.
+  - type: textarea
+    attributes:
+      label: Describe alternatives you've considered
+      description: Have you considered any alternative solutions or workarounds?

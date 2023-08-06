@@ -100,6 +100,15 @@ def get_from_env(
         return data[user][key]
 
 
+def get_headers(username):
+    return {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {get_from_env('access_token', username)}",
+        "trakt-api-version": "2",
+        "trakt-api-key": get_from_env("client_id", username),
+    }
+
+
 class ProgressBar:
     def __init__(self, title):
         self.title: str = title

@@ -8,7 +8,7 @@ import requests
 from dotenv import load_dotenv, set_key
 from plexapi.myplex import MyPlexAccount
 
-from utilities import ProgressBar, log, get_from_env
+from utilities import ProgressBar, get_from_env, log
 
 args = sys.argv[1:]
 
@@ -44,7 +44,7 @@ if args[0] == "-h":
 
 ------------------ Trakt Collection ------------------
 -c                  Media type (movies, episodes)
--PlexUser           The Plex username
+-PlexUser           The Plex username (check 'Syncing behavior' in section 'More info' in the README.md file)
 #-A                  Collection action (add, remove)
 
           """
@@ -325,7 +325,6 @@ if not load_dotenv():
 
 NUMBER_OF_ARGS = len(args)
 
-arguments_string = ""
 arguments_list = []
 if args[0] == "-m":
     SCROBBLE = True
@@ -340,7 +339,6 @@ if args[0] == "-m":
             next_arg = args[i + 1] if i + 1 < NUMBER_OF_ARGS else ""
             if " " in next_arg:
                 next_arg = f'"{next_arg}"'
-            arguments_string += f"{current_arg} {next_arg} "
             arguments_list += [current_arg, next_arg]
             i += 2
         else:
@@ -348,7 +346,7 @@ if args[0] == "-m":
 else:
     SCROBBLE = False
 
-log(f"ARGUMENTS: {arguments_string}")
+log(f"ARGUMENTS: {args}")
 
 log(f"SCROBBLE: {SCROBBLE}")
 if SCROBBLE:

@@ -5,7 +5,7 @@
   <h1 align="center">Tautulli Python 2 Trakt</h1>
 </p>
 
-<h2> Table of Contents </h2>
+## Table of Contents <!-- omit from toc -->
 
 - [Description](#description)
 - [What it can do](#what-it-can-do)
@@ -41,9 +41,11 @@ Python script to scrobble what you watch, sync your collected movies and TV show
 
 Download the latest release from [here](https://github.com/TheGeeKing/TautulliPython2Trakt/releases), unzip it and place all files in a folder.
 
-Create a new [application](https://trakt.tv/oauth/applications) Add the follow settings:
+Create a new [application](https://trakt.tv/oauth/applications) and add the following settings:
 
-**Name:** `TautulliPython2Trakt` **Redirect uri:** `urn:ietf:wg:oauth:2.0:oob` **Permissions:** `/scrobble`
+**Name:** `TautulliPython2Trakt` \
+**Redirect uri:** `urn:ietf:wg:oauth:2.0:oob` \
+**Permissions:** `/scrobble`
 
 Run the script:
 
@@ -80,7 +82,7 @@ If you want to collect your movies and TV shows, you need to do the Plex Media S
 3. In the `Triggers` section, select `Recently Added`.
 4. Put conditions if you want to, like media type, etc.
 5. In the `Arguments` tab, put the following argument:
-   1. Recently Added: `<movie>pythonw -c movies -PlexUser {username}</movie><episode>pythonw -c episodes -PlexUser {username}</episode><season>pythonw -c episodes -PlexUser {username}</season><show>pythonw -c episodes -PlexUser {username}</show>`
+   1. Recently Added: `<movie>pythonw -c movies -PlexUser %OWNER%</movie><episode>pythonw -c episodes -PlexUser %OWNER%</episode><season>pythonw -c episodes -PlexUser %OWNER%</season><show>pythonw -c episodes -PlexUser %OWNER%</show>`
 
 ## Usage
 
@@ -108,7 +110,7 @@ If you want to collect your movies and TV shows, you need to do the Plex Media S
 
 ------------------ Trakt Collection ------------------
 -c                  Media type (movies, episodes)
--PlexUser           The Plex username
+-PlexUser           The Plex username (check 'Syncing behavior' in section 'More info' in the README.md file)
 ```
 
 ## More info
@@ -119,6 +121,14 @@ Default scrobbler behavior is for:
 - Episodes:
   - If your Plex Media Server is connected, we get the ratingkey from the data sent by Tautulli. We make a database filled with ratingkey paired to ids. We search for the ids linked to the ratingkey in the database. We send the ids to Trakt. Trakt.tv uses TMDB database, so sending basic info like season and episode number can mismatch with your plex configuration. This way we ensure that the episode is scrobbled to the correct one on the Trakt end.
   - If you are not connected to your Plex Media Server, we send the data from Tautulli directly to Trakt.
+
+Syncing behavior:
+
+- Based on the -c argument, we either sync movies or episodes. It is syncing your entire collection, not just the recently added, so it might take some time. If it takes way too much time, open an issue and I might add/find a way to only sync the recently added content.
+- Based on the -PlexUser argument:
+  - (default behavior) `%OWNER%`, we sync the collections to the owner Trakt account.
+  - If a user is specified, we sync the collections to the specified user Trakt account. ⚠️ **It will sync like if it was the owner, so even if the user has not access to the library where the content was added.** You can also use a list: `"[username1, username2]"`, typo is very important.
+  - If `%ALL%` is specified, we sync the collections to all the users Trakt account. It will check if the users have access to the content before adding it to their collection.
 
 ## Similar Projects
 
